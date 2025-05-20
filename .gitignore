@@ -35,4 +35,8 @@ coverage
 *.zip
 
 # Output files
-*.csv logs/
+*.csv
+*.json
+*.xlsx
+*.html
+logs/
