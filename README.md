@@ -4,15 +4,30 @@ A command-line tool to upload images to Facebook Ads and generate a CSV file wit
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- Facebook Access Token with ads_management permission
+- For development: Node.js (v14 or higher)
+- For end users: No prerequisites needed, just download the executable for your platform
 
 ## Installation
+
+### For Developers
 
 1. Clone this repository
 2. Install dependencies:
 ```bash
 npm install
+```
+
+### For End Users
+
+1. Download the appropriate executable for your platform from the [Releases](https://github.com/rraagghhu/facebook-image-uploader/releases) page:
+   - Windows: `facebook-image-uploader-win.exe`
+   - macOS: `facebook-image-uploader-macos`
+   - Linux: `facebook-image-uploader-linux`
+
+2. Make the executable file executable (macOS/Linux only):
+```bash
+chmod +x facebook-image-uploader-macos  # for macOS
+chmod +x facebook-image-uploader-linux  # for Linux
 ```
 
 ## Configuration
@@ -28,7 +43,23 @@ Make sure your access token has the `ads_management` permission.
 
 ## Usage
 
-Run the script with the following command:
+### Using the Executable
+
+Run the executable with the following command:
+
+```bash
+# Windows
+facebook-image-uploader-win.exe -a <account_id> -i <zip_file_name> -o <csv_file_name>
+
+# macOS
+./facebook-image-uploader-macos -a <account_id> -i <zip_file_name> -o <csv_file_name>
+
+# Linux
+./facebook-image-uploader-linux -a <account_id> -i <zip_file_name> -o <csv_file_name>
+```
+
+### Using Node.js (for developers)
+
 ```bash
 node upload.js -a <account_id> -i <zip_file_name> -o <csv_file_name>
 ```
@@ -42,6 +73,10 @@ node upload.js -a <account_id> -i <zip_file_name> -o <csv_file_name>
 ### Example
 
 ```bash
+# Using executable
+./facebook-image-uploader-macos -a 3474663215890474 -i images.zip -o results.csv
+
+# Using Node.js
 node upload.js -a 3474663215890474 -i images.zip -o results.csv
 ```
 
@@ -72,4 +107,21 @@ The script will:
 ## Security Note
 
 Never commit your `accesstoken.json` file to version control. The file is already included in `.gitignore` to prevent accidental commits.
+
+## Building from Source
+
+If you want to build the executables yourself:
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Build the executables:
+```bash
+npm run build
+```
+
+The executables will be created in the `dist` directory.
 

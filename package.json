@@ -1,19 +1,44 @@
 {
-  "name": "fb-image-uploader",
+  "name": "facebook-image-uploader",
   "version": "1.0.0",
   "description": "Upload images to Facebook Ads and generate CSV with image hashes",
   "main": "upload.js",
-  "bin": {
-    "upload": "./upload.js"
+  "bin": "upload.js",
+  "pkg": {
+    "targets": [
+      "node18-macos-x64",
+      "node18-linux-x64",
+      "node18-win-x64"
+    ],
+    "outputPath": "dist"
   },
   "scripts": {
-    "start": "node upload.js"
+    "start": "node upload.js",
+    "build": "pkg ."
   },
+  "keywords": [
+    "facebook",
+    "ads",
+    "image",
+    "upload"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
     "adm-zip": "^0.5.10",
-    "axios": "^1.9.0",
-    "commander": "^11.1.0",
+    "axios": "^1.6.7",
+    "commander": "^12.0.0",
     "form-data": "^4.0.0",
-    "json2csv": "^6.0.0-alpha.2"
+    "json2csv": "^6.0.0-alpha.2",
+    "chalk": "^4.1.2",
+    "sharp": "^0.33.2",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1",
+    "crypto-js": "^4.2.0",
+    "exceljs": "^4.4.0",
+    "html-pdf-node": "^1.0.8"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
   }
 }
