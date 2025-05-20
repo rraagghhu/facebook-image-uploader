@@ -17,12 +17,12 @@ npm install
 
 ## Configuration
 
-Create a file named `accesstoken.json` in the root directory with your Facebook access token:
-```json
-{
-  "access_token": "your_facebook_access_token"
-}
+1. Copy the example access token file:
+```bash
+cp accesstoken.example.json accesstoken.json
 ```
+
+2. Edit `accesstoken.json` and replace `your_facebook_access_token_here` with your actual Facebook access token.
 
 Make sure your access token has the `ads_management` permission.
 
@@ -68,4 +68,8 @@ The script will:
 - Log any errors encountered during image processing
 - Continue processing remaining images if one image fails
 - Show a summary of successful and failed uploads at the end
+
+## Security Note
+
+Never commit your `accesstoken.json` file to version control. The file is already included in `.gitignore` to prevent accidental commits.
 
