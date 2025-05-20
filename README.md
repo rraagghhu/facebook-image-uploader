@@ -1,127 +1,111 @@
 # Facebook Image Uploader
 
-A command-line tool to upload images to Facebook Ads and generate a CSV file with image hashes.
+A Node.js tool to upload images to Facebook Ads and generate reports with image hashes.
+
+## Features
+
+- Upload multiple images to Facebook Ads from a ZIP file
+- Generate reports in multiple formats (CSV, JSON, Excel, HTML)
+- Progress tracking and detailed logging
+- Image validation and optimization
+- Secure token storage
+- Concurrent uploads with configurable limits
 
 ## Prerequisites
 
-- For development: Node.js (v14 or higher)
-- For end users: No prerequisites needed, just download the executable for your platform
+- Node.js (v18 or higher)
+- npm (comes with Node.js)
+- A Facebook Ad Account ID
+- A Facebook Access Token
 
 ## Installation
 
-### For Developers
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/rraagghhu/facebook-image-uploader.git
+   cd facebook-image-uploader
+   ```
 
-1. Clone this repository
 2. Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
-### For End Users
-
-1. Download the appropriate executable for your platform from the [Releases](https://github.com/rraagghhu/facebook-image-uploader/releases) page:
-   - Windows: `facebook-image-uploader-win.exe`
-   - macOS: `facebook-image-uploader-macos`
-   - Linux: `facebook-image-uploader-linux`
-
-2. Make the executable file executable (macOS/Linux only):
-```bash
-chmod +x facebook-image-uploader-macos  # for macOS
-chmod +x facebook-image-uploader-linux  # for Linux
-```
-
-## Configuration
-
-1. Copy the example access token file:
-```bash
-cp accesstoken.example.json accesstoken.json
-```
-
-2. Edit `accesstoken.json` and replace `your_facebook_access_token_here` with your actual Facebook access token.
-
-Make sure your access token has the `ads_management` permission.
+3. Create an `accesstoken.json` file in the project root:
+   ```json
+   {
+     "access_token": "YOUR_FACEBOOK_ACCESS_TOKEN"
+   }
+   ```
 
 ## Usage
 
-### Using the Executable
-
-Run the executable with the following command:
+### Basic Usage
 
 ```bash
-# Windows
-facebook-image-uploader-win.exe -a <account_id> -i <zip_file_name> -o <csv_file_name>
-
-# macOS
-./facebook-image-uploader-macos -a <account_id> -i <zip_file_name> -o <csv_file_name>
-
-# Linux
-./facebook-image-uploader-linux -a <account_id> -i <zip_file_name> -o <csv_file_name>
+node upload.js -a <AD_ACCOUNT_ID> -i <ZIP_FILE> -o <OUTPUT_FILE>
 ```
 
-### Using Node.js (for developers)
-
+Example:
 ```bash
-node upload.js -a <account_id> -i <zip_file_name> -o <csv_file_name>
+node upload.js -a 123456789 -i images.zip -o results
 ```
 
-### Parameters
+### Command Line Options
 
-- `-a, --account`: Facebook Ad Account ID (required)
-- `-i, --input`: Input ZIP file containing images (required)
-- `-o, --output`: Output CSV file path (required)
+- `-a, --account <id>`: Facebook Ad Account ID (required)
+- `-i, --input <file>`: Input ZIP file containing images (required)
+- `-o, --output <file>`: Output file path (required)
+- `-f, --format <format>`: Output format (csv, json, excel, html) [default: "csv"]
+- `-c, --concurrent <number>`: Number of concurrent uploads [default: 3]
 
-### Example
+### Output Formats
 
+The tool supports multiple output formats:
+- CSV (default)
+- JSON
+- Excel
+- HTML
+
+Example with format:
 ```bash
-# Using executable
-./facebook-image-uploader-macos -a 3474663215890474 -i images.zip -o results.csv
-
-# Using Node.js
-node upload.js -a 3474663215890474 -i images.zip -o results.csv
+node upload.js -a 123456789 -i images.zip -o results -f json
 ```
 
-## Output
+### Concurrent Uploads
 
-The script will:
-1. Process all images in the ZIP file
-2. Upload them to Facebook Ads
-3. Generate a CSV file with two columns:
-   - `image_name`: Original name of the image
-   - `image_hash`: Facebook's image hash
-
-## Supported Image Formats
-
-- PNG
-- JPG/JPEG
-- GIF
-- WebP
-
-## Error Handling
-
-The script will:
-- Exit with an error if it cannot read or parse the `accesstoken.json` file
-- Log any errors encountered during image processing
-- Continue processing remaining images if one image fails
-- Show a summary of successful and failed uploads at the end
-
-## Security Note
-
-Never commit your `accesstoken.json` file to version control. The file is already included in `.gitignore` to prevent accidental commits.
-
-## Building from Source
-
-If you want to build the executables yourself:
-
-1. Clone the repository
-2. Install dependencies:
+Control the number of concurrent uploads:
 ```bash
-npm install
+node upload.js -a 123456789 -i images.zip -o results -c 5
 ```
 
-3. Build the executables:
-```bash
-npm run build
-```
+## Image Requirements
 
-The executables will be created in the `dist` directory.
+- Supported formats: PNG, JPG, JPEG, GIF, WEBP
+- Maximum dimensions: 1936x1936 pixels
+- Maximum file size: 30MB
+
+## Logging
+
+Logs are stored in the `logs` directory with daily rotation. Check `logs/upload.log` for detailed information about the upload process.
+
+## Security
+
+The tool includes several security features:
+- Encrypted token storage
+- Secure configuration management
+- Input validation
+- Error handling and logging
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
